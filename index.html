@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang=en-us>
+<head>
+	<title>Editing CSS Sheets Dynamically with Strong CSP (Content Security Policy)</title>
+	<meta charset=utf-8>
+<!--
+
+Live on CodePen: https://codepen.io/bmt-systems-codepen/project/editor/ABQMRq#
+
+https://codepen.io/bmt-systems-codepen/project/details/ABQMRq/
+
+On an actual, non-CodePen site, you'd send the Content-Security-Policy via headers from the server, not in a META tag
+The nonce for CSP 3 Strict Dynamic would be generated server side and set as an attribute of
+
+1) the otherwise optional web_author META element
+2) the STYLE element in the HEAD
+3) the SCRIPT element at the bottom of the BODY
+
+NB: If you alter the nonce in the http-equiv META tag, the STYLE and SCRIPT elements will not load, and an error message
+will be generated in the developer's tools.
+-->
+	<meta http-equiv=Content-Security-Policy content="script-src 'self' http: https: 'nonce-SM56vT85MkcK2gFpi9iN4VcO1rW3LYGHAnSgGD1a' 'strict-dynamic' ; style-src 'self' 'nonce-SM56vT85MkcK2gFpi9iN4VcO1rW3LYGHAnSgGD1a' ;">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name=web_author content="BMT Systems, Inc." data-nonce=SM56vT85MkcK2gFpi9iN4VcO1rW3LYGHAnSgGD1a>
+	<style nonce=SM56vT85MkcK2gFpi9iN4VcO1rW3LYGHAnSgGD1a>
+:root {
+	--background-color: white;
+	--font-size: 16px;
+}
+h2 {
+	background-color: var(--background-color);
+}
+h3 {
+	font-size: var(--font-size);
+}
+	</style>
+</head>
+<body>
+	<h1>CSS Rules in All Sheets, Updated on Dynamic Change:</h1>
+	<p id=css-rules-display></p>
+	<hr>
+	<h2>H2: Change the background color of this text with the drop-down list selector.</h2>
+	<label for=background-color-selector>Choose Background Color:</label>
+	<select id=background-color-selector title="Background Color Picker">
+		<option value=white>White</option>
+		<option value=red>Red</option>
+		<option value=yellow>Yellow</option>
+		<option value=blue>Blue</option>
+		<option value=green>Green</option>
+		<option value=orange>Orange</option>
+		<option value=purple>Purple</option>
+	</select>
+	<hr>
+	<h3>H3: Change the size of this text by clicking the buttons.</h3>
+	<button id=plus-1px>+1 px</button>
+	<button id=minus-1px>-1 px</button>
+	<script src="javascript/defer.module.js" type=module nonce=SM56vT85MkcK2gFpi9iN4VcO1rW3LYGHAnSgGD1a></script>
+</body>
+</html>
